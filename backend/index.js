@@ -4,6 +4,8 @@ const app = express()
 const Result = require('./models/result')
 const cors = require('cors')
 const { response } = require('express')
+const HOST = process.env.IP
+const PORT = process.env.PORT
 
 //This file contains all information of api calls
 //every call returns data in JSON format
@@ -83,7 +85,7 @@ app.put('/api/update/:id', (request, response) => {
         .catch(error => next(error))
 })
 
-const PORT = process.env.PORT
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })

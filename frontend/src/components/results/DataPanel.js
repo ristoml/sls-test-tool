@@ -7,7 +7,7 @@ import Datatable from "./DataTable"
 import axios from 'axios'
 import { useEffect, useState, useRef } from 'react'
 
-let APIURL = 'http://localhost:3001/' //url which is used in api calls
+let APIURL = process.env.COMPONENT_BACKEND_HOST //url which is used in api calls
 
 const Datapanel = ({ onClick, squatData, clientName }) => {
     const [data, setCurrentData] = useState(null)
