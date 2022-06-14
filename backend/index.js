@@ -4,7 +4,7 @@ const app = express()
 const Result = require('./models/result')
 const cors = require('cors')
 const { response } = require('express')
-const HOST = process.env.IP
+// const HOST = process.env.IP
 const PORT = process.env.PORT
 
 //This file contains all information of api calls
