@@ -7,7 +7,7 @@ const { response } = require('express')
 // const HOST = process.env.IP
 const PORT = process.env.PORT
 var util= require('util');
-var encoder = new util.TextEncoder('utf-8');
+var utf8Encoder = new util.TextEncoder('utf-8');
 
 //This file contains all information of api calls
 //every call returns data in JSON format
