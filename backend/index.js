@@ -6,10 +6,6 @@ const cors = require('cors')
 const { response } = require('express')
 // const HOST = process.env.IP
 const PORT = process.env.PORT
-var util = require('util');
-global.TextEncoder = util.TextEncoder;
-global.TextDecoder = util.TextDecoder;
-//var utf8Encoder = new util.TextEncoder('utf-8');
 
 //This file contains all information of api calls
 //every call returns data in JSON format
