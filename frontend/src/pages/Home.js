@@ -17,6 +17,7 @@ const Home = () => {
   const [showPopup, setShowPopup] = useState(false)
   const [useTimer, setUseTimer] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
+  // const [canvasStyle, setCanvasStyle] = useState("flippedCanvas")
 
   const startRecording = () => {
     console.log("Start recording");
@@ -91,7 +92,7 @@ const Home = () => {
             isLeftLeg={isLeftLeg}
             isStarted={recording}
             getSquatData={handleSquatData}
-            onClick={showResults}
+            onClick={showResults}            
           />
           <ControlPanel
             onChange={() => setIsLeftLeg(!isLeftLeg)}

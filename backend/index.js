@@ -5,7 +5,8 @@ const Result = require('./models/result')
 const cors = require('cors')
 const { response } = require('express')
 // const HOST = process.env.IP
-const PORT = process.env.PORT
+//const PORT = process.env.PORT
+const PORT = 3001
 
 //This file contains all information of api calls
 //every call returns data in JSON format

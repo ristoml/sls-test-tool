@@ -5,8 +5,11 @@ import { useState, useEffect, useRef } from 'react'
 import Select from 'react-select'
 import axios from 'axios'
 import Button from '../home/Button'
+import PlayBack from '../results/PlayBack'
 
-let APIURL = process.env.COMPONENT_BACKEND_HOST //url which is used in api calls 
+//let APIURL = 'https://sls-backend-sls-test-tool.rahtiapp.fi/' // url which is used in api calls
+let APIURL = 'http://localhost:3001/'
+
 
 const makeOptions = (data) => { // form the initial array of labels and Ids which is passed on to the react-select drop-down menu component
     const rdata = data.map(x => ({
@@ -31,9 +34,12 @@ const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
     const [allData, setAllData] = useState(sdata)
     const [label, setLabel] = useState()
     const [showEdit, setShowEdit] = useState(false)
+    const [showPlayback, setShowPlayback] = useState(false)
     const isLoaded = useRef(false)
     const [tempName, setTempName] = useState('')
     const [listOptions, setListOptions] = useState('')
+    const canvasRef = useRef(null) // for playback
+
 
     useEffect(() => {
         setAllData(sdata)
@@ -58,7 +64,7 @@ const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
     }
 
     return (<>
-        {options && // dont render before we have the array ready
+        {options && // dont try to render before we have the array ready
             <div className='result-panel'>
                 <Select className='select-single'
                     onChange={e => {
@@ -75,7 +81,7 @@ const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
                 <Button
                     className={'btn2'}
                     text='Edit'
-                    color='#8300d4'
+                    color='#9a9a9a'
                     onClick={() => {
                         setShowEdit(true)
                     }
@@ -83,8 +89,19 @@ const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
                 />
                 <Button
                     className={'btn2'}
+                    text='Play'
+                    color='#06e190'
+                    onClick={() => {
+                        setShowPlayback(true)
+                    }
+                    }
+                />
+
+
+                <Button
+                    className={'btn2'}
                     text='Delete'
-                    color='#bdffff'
+                    color='#e60000'
                     onClick={() => {
                         if (window.confirm(`Do you want to delete the test result \n '${label}' ?`)) {
                             isLoaded.current = false
@@ -118,6 +135,28 @@ const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
                         text='Cancel'
                         onClick={() => {
                             setShowEdit(false)
+                        }} />
+                </div>
+            </div>
+        } {showPlayback && // show a pop-up box for playbacking of the selected recording
+            <div className='popup-box'>
+                <div className='editBox' id='playback'>
+                    <p><strong>Playback box</strong><br /></p>
+                    <PlayBack data={() => getId(resultId)}></PlayBack>
+                    <Button
+                        className={'btn2'}
+                        color='grey'
+                        text='Play'
+                        onClick={() => {
+                            console.log("playback")
+
+                        }} />
+                    <Button
+                        className={'btn2'}
+                        color='grey'
+                        text='Close'
+                        onClick={() => {
+                            setShowPlayback(false)
                         }} />
                 </div>
             </div>

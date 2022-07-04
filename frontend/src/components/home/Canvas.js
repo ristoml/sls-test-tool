@@ -150,6 +150,9 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData }) => {
         alreadyRan = true
       }
       if (record.length < maxDataSize) {
+        var start = Date.now()
+
+        console.log(Date.now() -start);
         isLeft ? record.push({ leg: 'left', counter: counter, angle: ph.getLeftAngle(), data: ph.getLeftLeg() }) : record.push({ leg: 'right', counter: counter, angle: ph.getRightAngle(), data: ph.getRightLeg() })
       }
 
@@ -187,7 +190,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData }) => {
         ref={webcamRef}
         style={{ display: "none" }}
       />
-      <canvas ref={canvasRef} ></canvas>
+      <canvas ref={canvasRef}></canvas>
     </>
   )
 }

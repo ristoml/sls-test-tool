@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const test = "test"
 
-const url = process.env.MONGODB_URI
+//const url = process.env.MONGODB_URI
+const url = 'mongodb+srv://eslan:eslan@cluster0.wzwlt.mongodb.net/kneeangleDB?retryWrites=true&w=majority'
 
 console.log('connecting to', url)
 mongoose.connect(url)
