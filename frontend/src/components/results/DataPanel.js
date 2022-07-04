@@ -7,7 +7,7 @@ import Datatable from "./DataTable"
 import axios from 'axios'
 import { useEffect, useState, useRef } from 'react'
 
-let APIURL = process.env.COMPONENT_BACKEND_HOST // url which is used in api calls
+let APIURL = process.env.REACT_APP_BASE_URL
 
 const Datapanel = ({ onClick, squatData, clientName }) => {
     const [data, setCurrentData] = useState(null)
@@ -17,6 +17,7 @@ const Datapanel = ({ onClick, squatData, clientName }) => {
     Object.keys(squatData).length > 1 ? newData.current = true : newData.current = false // check if we are accessing this component after fresh recording
 
     useEffect(() => {
+        console.log(APIURL)
         switch (newData.current) {
             case true: // when we have a new recording
                 if (!saved.current) {

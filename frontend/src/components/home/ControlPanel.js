@@ -3,16 +3,24 @@ import Button from './Button'
 import { Link } from 'react-router-dom'
 import Toggle from './Toggle'
 
-const ControlPanel = ({ onChange, onClick, onClick2, isRecording, isLeft, handleTimer, useTimer }) => {
+const ControlPanel = ({ onChange, onClick, onClick2, isRecording, isLeft, handleTimer, useTimer, handleFlip, flipped }) => {
   return (
     <div className='control-panel'>
-      <div>Left
+      <div>Leg L
         <Toggle
           disabled={isRecording ? true : false}
           onChange={onChange}
-          isLeft={isLeft}
+          checked={isLeft}
         />
-        Right</div><div>
+        R<br>
+        </br>
+        Flip Y
+        <Toggle          
+          disabled={isRecording ? true : false}
+          onChange={handleFlip}          
+          checked={flipped}
+        />N
+      </div><div>
         <Button
           className={'btn'}
           color={isRecording ? '#bdffff' : '#8300d4'}

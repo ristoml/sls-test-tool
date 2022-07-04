@@ -17,6 +17,8 @@ const Home = () => {
   const [showPopup, setShowPopup] = useState(false)
   const [useTimer, setUseTimer] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
+  const [flipped, setFlipped] = useState(true)
+  
 
   const startRecording = () => {
     console.log("Start recording");
@@ -48,9 +50,17 @@ const Home = () => {
     }
     setShowPopup(true)
   }
+  
+  const handleFlip = () => {    
+    setFlipped(!flipped)
+  }
 
   const handleTimerChange = () => {
-    setUseTimer(!useTimer)
+    setUseTimer(!useTimer)    
+  }
+
+  const handleLegChange = () => {
+    setIsLeftLeg(!isLeftLeg)
   }
 
   const handlePopup = (selection, name) => {
@@ -92,15 +102,18 @@ const Home = () => {
             isStarted={recording}
             getSquatData={handleSquatData}
             onClick={showResults}
+            flipped={flipped}
           />
           <ControlPanel
-            onChange={() => setIsLeftLeg(!isLeftLeg)}
+            onChange={handleLegChange}
             onClick={recording ? stopRecording : startRecording}
             onClick2={showResults}
             isRecording={recording}
             isLeft={isLeftLeg}
             handleTimer={handleTimerChange}
             useTimer={useTimer}
+            handleFlip={handleFlip}
+            flipped={flipped}
           />
           {showPopup &&
             <Popup

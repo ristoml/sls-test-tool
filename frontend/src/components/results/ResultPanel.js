@@ -6,7 +6,7 @@ import Select from 'react-select'
 import axios from 'axios'
 import Button from '../home/Button'
 
-let APIURL = process.env.COMPONENT_BACKEND_HOST //url which is used in api calls 
+let APIURL = process.env.REACT_APP_BASE_URL //url which is used in api calls 
 
 const makeOptions = (data) => { // form the initial array of labels and Ids which is passed on to the react-select drop-down menu component
     const rdata = data.map(x => ({

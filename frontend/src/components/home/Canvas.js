@@ -19,13 +19,15 @@ let squatted = false
 let hipAtStart, counter, record, isLeft
 let squattedText = 'Ok!'
 let playSound = new Audio(sound)
+let isFlipped = true
 
-const Canvas = ({ isLeftLeg, isStarted, getSquatData }) => {
+const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped }) => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
   isRunning = isStarted
   isLeft = isLeftLeg
-  playSound.pause()
+  isFlipped = flipped
+  playSound.pause()  
 
   useEffect(() => {
     const pose = new Pose({
@@ -53,7 +55,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData }) => {
         },
         width: 1280,
         height: 720,
-        facingMode: "environment"
+        facingMode: isFlipped ? "user" : "environment"
       })
       camera.start()
     }
@@ -69,8 +71,10 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData }) => {
     const canvasCtx = canvasElement.getContext("2d")
     canvasCtx.save()
     canvasCtx.clearRect(0, 0, videoWidth, videoHeight)
-    canvasCtx.translate(videoWidth, 0)
-    canvasCtx.scale(-1, 1)
+    if (isFlipped) {
+      canvasCtx.translate(videoWidth, 0)
+      canvasCtx.scale(-1, 1)
+    }
     canvasCtx.font = "40px Verdana"
     canvasCtx.fillStyle = "#bdffff"
     canvasCtx.drawImage(
@@ -99,7 +103,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData }) => {
           videoWidth * ph.getLeftKneeX() + 100,
           videoHeight * ph.getLeftKneeY()
         );
-        canvasCtx.scale(-1, 1)
+        if (isFlipped) canvasCtx.scale(-1, 1)
         if (
           ph.getLeftAngle() <= 0 - allowedAngleDeviation || // use warning color for angle text
           ph.getLeftAngle() >= 0 + allowedAngleDeviation
@@ -127,7 +131,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData }) => {
           videoWidth * ph.getRightKneeX() - 50,
           videoHeight * ph.getRightKneeY()
         );
-        canvasCtx.scale(-1, 1)
+        if (isFlipped) canvasCtx.scale(-1, 1)
         if (
           ph.getRightAngle() <= 0 - allowedAngleDeviation ||
           ph.getRightAngle() >= 0 + allowedAngleDeviation
@@ -140,7 +144,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData }) => {
     }
 
     // squat counter and data capture
-    canvasCtx.scale(-1, 1)
+    if (isFlipped) canvasCtx.scale(-1, 1)
     if (isRunning) {
       if (!alreadyRan) { // new recording, reset everything
         isLeft ? hipAtStart = ph.getLeftHipY() * hipMargin : hipAtStart = ph.getRightHipY() * hipMargin

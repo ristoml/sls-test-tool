@@ -1,11 +1,11 @@
 /* This is used for the leg selection toggle-switch in the Home view */
 
-const Toggle = ({ disabled, onChange, isLeft }) => {
+const Toggle = ({ disabled, onChange, checked }) => {
   return (
     <label className='toggle-switch'>
       <input
         type='checkbox'
-        checked={!isLeft}
+        checked={!checked}
         disabled={disabled}
         onChange={onChange}
       />
