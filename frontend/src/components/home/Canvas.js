@@ -23,7 +23,7 @@ let isFlipped = true
 
 const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped }) => {
   const webcamRef = useRef(null)
-  const canvasRef = useRef(null)
+  const canvasRef = useRef(null)  
   isRunning = isStarted
   isLeft = isLeftLeg
   isFlipped = flipped
