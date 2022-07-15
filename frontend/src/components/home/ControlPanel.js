@@ -6,7 +6,7 @@ import Toggle from './Toggle'
 const ControlPanel = ({ onChange, onClick, onClick2, isRecording, isLeft, handleTimer, useTimer, handleFlip, flipped }) => {
   return (
     <div className='control-panel'>
-      <div>Leg  L
+      <div>Side L 
         <Toggle
           disabled={isRecording ? true : false}
           onChange={onChange}
@@ -14,12 +14,12 @@ const ControlPanel = ({ onChange, onClick, onClick2, isRecording, isLeft, handle
         />
         R<br>
         </br>
-        Flip N
+        Cam R
         <Toggle          
           disabled={isRecording ? true : false}
           onChange={handleFlip}          
           checked={!flipped}
-        />Y
+        />F
       </div><div>
         <Button
           className={'btn'}

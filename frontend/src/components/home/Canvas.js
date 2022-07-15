@@ -30,7 +30,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped }) => {
   playSound.pause()  
 
   useEffect(() => {
-    const pose = new Pose({
+    let pose = new Pose({
       locateFile: (file) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
       },
@@ -48,7 +48,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped }) => {
     if (
       typeof webcamRef.current !== "undefined" &&
       webcamRef.current !== null
-    ) {
+    ) {      
       const camera = new Camera(webcamRef.current.video, {
         onFrame: async () => {
           await pose.send({ image: webcamRef.current.video })
@@ -60,7 +60,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped }) => {
       camera.start()
     }
     pose.onResults(onResults)
-  }, [])
+  }, [flipped])
 
   const onResults = (results) => {
     const videoWidth = webcamRef.current.video.videoWidth
