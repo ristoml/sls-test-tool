@@ -59,7 +59,7 @@ canvas {
 .result-panel {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: center;  
 }
 
 .select-single {
@@ -88,6 +88,16 @@ canvas {
   font-size: small;
   font-weight: bold;
 }
+
+.btn3 {
+  border-radius: 10%;
+  margin: 5px;
+  height: 30px;
+  width: 35px;
+  font-size: large;
+  font-weight: bold;
+}
+
 
 .toggle-switch {
   display: inline-block;
@@ -277,6 +287,22 @@ table {
   overflow: auto;
   z-index: 2;
 }
+.playbackBox {
+  position: relative;
+  width: 55%;
+  margin: 0 auto;
+  height: auto;
+  color: black;
+  max-height: 90vh;
+  margin-top: calc(100vh - 93vh - 20px);
+  background: rgba(255, 255, 255, 0.884);
+  border-radius: 4px;
+  padding: 10px;
+  border: 2px solid #8300d4;
+  overflow: auto;
+  z-index: 2;
+}
+
 
 .countdown-popup-box {
   position: fixed;

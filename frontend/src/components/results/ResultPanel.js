@@ -5,8 +5,10 @@ import { useState, useEffect, useRef } from 'react'
 import Select from 'react-select'
 import axios from 'axios'
 import Button from '../home/Button'
+import Playback from '../results/Playback'
 
 let APIURL = process.env.REACT_APP_BASE_URL //url which is used in api calls 
+
 
 const makeOptions = (data) => { // form the initial array of labels and Ids which is passed on to the react-select drop-down menu component
     const rdata = data.map(x => ({
@@ -31,9 +33,13 @@ const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
     const [allData, setAllData] = useState(sdata)
     const [label, setLabel] = useState()
     const [showEdit, setShowEdit] = useState(false)
+    const [showPlayback, setShowPlayback] = useState(false)
     const isLoaded = useRef(false)
     const [tempName, setTempName] = useState('')
     const [listOptions, setListOptions] = useState('')
+    const [data, setCurrentData] = useState('')
+    //const canvasRef = useRef(null) // for playback
+
 
     useEffect(() => {
         setAllData(sdata)
@@ -56,9 +62,16 @@ const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
     const getAllData = () => {
         return axios.get(APIURL + 'api/results')
     }
+    const getResult = (resultId) => { // get specific result by ID
+        const promise = axios.get(APIURL + `api/searchResult/${resultId}`)
+        promise.then(response => {
+            setCurrentData(response.data)
+        })
+    }
+
 
     return (<>
-        {options && // dont render before we have the array ready
+        {options && // dont try to render before we have the array ready
             <div className='result-panel'>
                 <Select className='select-single'
                     onChange={e => {
@@ -73,18 +86,27 @@ const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
 
                 />
                 <Button
-                    className={'btn2'}
-                    text='Edit'
-                    color='#8300d4'
+                    className={'btn3'}
+                    text='&#9998;'
+                    color='#adbce6'
                     onClick={() => {
                         setShowEdit(true)
                     }
                     }
                 />
                 <Button
-                    className={'btn2'}
-                    text='Delete'
-                    color='#bdffff'
+                    className={'btn3'}
+                    text='&#9654;'
+                    color='#06e190'
+                    onClick={() => {
+                        setShowPlayback(true)
+                    }
+                    }
+                />
+                <Button
+                    className={'btn3'}
+                    text='&#128465;'
+                    color='#e60000'
                     onClick={() => {
                         if (window.confirm(`Do you want to delete the test result \n '${label}' ?`)) {
                             isLoaded.current = false
@@ -118,6 +140,30 @@ const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
                         text='Cancel'
                         onClick={() => {
                             setShowEdit(false)
+                        }} />
+                </div>
+            </div>
+        } {showPlayback && // show a pop-up box for playbacking of the selected recording
+            <div className='popup-box'>
+                <div className='playbackBox' id='playback'>
+                    <p><strong>{label}</strong><br /></p>
+                    <Playback
+                        id={resultId}
+                        />
+                    <Button
+                        className={'btn2'}
+                        color='grey'
+                        text='Play'
+                        onClick={() => {
+                            console.log("playback")
+
+                        }} />
+                    <Button
+                        className={'btn2'}
+                        color='grey'
+                        text='Close'
+                        onClick={() => {
+                            setShowPlayback(false)
                         }} />
                 </div>
             </div>
