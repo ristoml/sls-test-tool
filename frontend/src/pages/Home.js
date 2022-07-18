@@ -18,6 +18,7 @@ const Home = () => {
   const [useTimer, setUseTimer] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
   const [flipped, setFlipped] = useState(true)
+  const [video, setVideo] = useState([])
   
 
   const startRecording = () => {
@@ -33,6 +34,10 @@ const Home = () => {
   const stopRecording = () => {
     console.log("Stop recording");
     setRecording(false)
+  }
+
+  const getVideo = (video) => {
+    setVideo(video)
   }
 
   const showResults = () => {
@@ -70,6 +75,7 @@ const Home = () => {
       setShowCanvas(false)
     } else {
       setSquatData({})
+      setVideo({})
       setShowPopup(false)
     }
   }
@@ -103,6 +109,7 @@ const Home = () => {
             getSquatData={handleSquatData}
             onClick={showResults}
             flipped={flipped}
+            getVideo={getVideo}
           />
           <ControlPanel
             onChange={handleLegChange}
@@ -133,6 +140,7 @@ const Home = () => {
         <Datapanel
           onClick={() => setShowCanvas(!showCanvas)}
           squatData={squatData}
+          video={video}
           clientName={clientName.current}
         />
       )}

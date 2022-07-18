@@ -28,7 +28,7 @@ const updateOptions = (data, value, newName) => { // after deleting an entry we 
 }
 let options
 
-const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
+const ResultPanel = ({ getId, delId, sdata, updateClient, video }) => {
     const [resultId, setResultId] = useState(null)
     const [allData, setAllData] = useState(sdata)
     const [label, setLabel] = useState()
@@ -149,6 +149,7 @@ const ResultPanel = ({ getId, delId, sdata, updateClient }) => {
                     <p><strong>{label}</strong><br /></p>
                     <Playback
                         id={resultId}
+                        video={video}
                         />
                     <Button
                         className={'btn2'}

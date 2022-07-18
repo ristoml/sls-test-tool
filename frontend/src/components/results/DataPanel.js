@@ -9,7 +9,7 @@ import { useEffect, useState, useRef } from 'react'
 
 let APIURL = process.env.REACT_APP_BASE_URL
 
-const Datapanel = ({ onClick, squatData, clientName }) => {
+const Datapanel = ({ onClick, squatData, clientName, video }) => {
     const [data, setCurrentData] = useState(null)
     const saved = useRef(false)
     const newData = useRef(false)
@@ -17,7 +17,6 @@ const Datapanel = ({ onClick, squatData, clientName }) => {
     Object.keys(squatData).length > 1 ? newData.current = true : newData.current = false // check if we are accessing this component after fresh recording
 
     useEffect(() => {
-        console.log(APIURL)
         switch (newData.current) {
             case true: // when we have a new recording
                 if (!saved.current) {
@@ -80,6 +79,7 @@ const Datapanel = ({ onClick, squatData, clientName }) => {
                         getId={getResult}
                         delId={deleteResult}
                         sdata={data}
+                        video={video}
                         updateClient={updateResult}
                     />
                     <Stats data={data.data} />

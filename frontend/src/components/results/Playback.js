@@ -1,38 +1,21 @@
-import React, { useRef, useState, useEffect } from 'react'
-import axios from 'axios'
-
-let APIURL = process.env.REACT_APP_BASE_URL //url which is used in api calls 
+import React, { useRef, useEffect } from 'react'
 
 const Canvas = props => {
-    const [currentData, setCurrentData] = useState('')
-    const [initialized, setInitialized] = useState(false)
-    
-    const getResult = (resultId) => { // get specific result by ID
-        const promise = axios.get(APIURL + `api/searchResult/${resultId}`)
-        promise.then(response => {
-            setCurrentData(response.data)
-        })
-    }
-
-    if (!initialized) {
-
-        getResult(props.id)        
-        setInitialized(true)
-    }
-    console.log(currentData)
 
     const cvsreF = useRef(null)
 
     const draw = (ctx, frameCount) => {
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-        ctx.fillStyle = '#000000'
-        ctx.beginPath()
-        ctx.arc(50, 100, 20 * Math.sin(frameCount * 0.05) ** 2, 0, 2 * Math.PI)
-        ctx.fill()
+        if (props.video.length > 1) {
+            var tmpImg = new Image()
+            tmpImg.src = props.video[frameCount]
+            ctx.drawImage(tmpImg, 0, 0, tmpImg.width, tmpImg.height, 0, 0, 620, 460)
+        } else {
+            ctx.font = "40px Verdana"
+            ctx.fillStyle = "#77bdff"
+            ctx.fillText("No video available", 130, 230)
+        }
+
     }
-
-
-
 
     useEffect(() => {
 
@@ -40,13 +23,20 @@ const Canvas = props => {
         const context = canvas.getContext('2d')
         let frameCount = 0
         let animationFrameId
+        canvas.width = 620
+        canvas.height = 460
 
         //Our draw came here
         const render = () => {
-            frameCount++
-            draw(context, frameCount)
-            animationFrameId = window.requestAnimationFrame(render)
+            setTimeout(() => {
+                if (frameCount === props.video.length - 1) frameCount = 0
+                frameCount++
+                draw(context, frameCount)
+                animationFrameId = window.requestAnimationFrame(render)
+            }, 70)           
+
         }
+
         render()
 
         return () => {

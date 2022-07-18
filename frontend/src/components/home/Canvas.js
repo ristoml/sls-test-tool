@@ -21,13 +21,15 @@ let squattedText = 'Ok!'
 let playSound = new Audio(sound)
 let isFlipped = true
 
-const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped }) => {
+const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo }) => {
   const webcamRef = useRef(null)
-  const canvasRef = useRef(null)  
+  const canvasRef = useRef(null)
+  const frameStack = useRef([])
+
   isRunning = isStarted
   isLeft = isLeftLeg
   isFlipped = flipped
-  playSound.pause()  
+  playSound.pause()
 
   useEffect(() => {
     let pose = new Pose({
@@ -48,7 +50,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped }) => {
     if (
       typeof webcamRef.current !== "undefined" &&
       webcamRef.current !== null
-    ) {      
+    ) {
       const camera = new Camera(webcamRef.current.video, {
         onFrame: async () => {
           await pose.send({ image: webcamRef.current.video })
@@ -149,12 +151,14 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped }) => {
       if (!alreadyRan) { // new recording, reset everything
         isLeft ? hipAtStart = ph.getLeftHipY() * hipMargin : hipAtStart = ph.getRightHipY() * hipMargin
         record = []
+        frameStack.current = []
         counter = 0
         squatted = false
         alreadyRan = true
       }
       if (record.length < maxDataSize) {
         isLeft ? record.push({ leg: 'left', counter: counter, angle: ph.getLeftAngle(), data: ph.getLeftLeg() }) : record.push({ leg: 'right', counter: counter, angle: ph.getRightAngle(), data: ph.getRightLeg() })
+        frameStack.current.push(canvasElement.toDataURL("image/png"))
       }
 
       if (
@@ -178,9 +182,10 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped }) => {
 
     if (!isRunning && alreadyRan) { // recording stops     
       getSquatData(record)
+      getVideo(frameStack.current)
       alreadyRan = false
       squatted = false
-      playSound.pause()
+      playSound.pause()      
     }
     canvasCtx.restore()
   }
