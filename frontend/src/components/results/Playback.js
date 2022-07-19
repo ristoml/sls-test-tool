@@ -8,11 +8,11 @@ const Canvas = props => {
         if (props.video.length > 1) {
             var tmpImg = new Image()
             tmpImg.src = props.video[frameCount]
-            ctx.drawImage(tmpImg, 0, 0, tmpImg.width, tmpImg.height, 0, 0, 620, 460)
+            ctx.drawImage(tmpImg, 0, 0, tmpImg.width, tmpImg.height, 0, 0, 600, 440)
         } else {
             ctx.font = "40px Verdana"
             ctx.fillStyle = "#77bdff"
-            ctx.fillText("No video available", 130, 230)
+            ctx.fillText("No video available", 120, 220)
         }
 
     }
@@ -23,8 +23,8 @@ const Canvas = props => {
         const context = canvas.getContext('2d')
         let frameCount = 0
         let animationFrameId
-        canvas.width = 620
-        canvas.height = 460
+        canvas.width = 600
+        canvas.height = 440
 
         //Our draw came here
         const render = () => {
@@ -33,7 +33,7 @@ const Canvas = props => {
                 frameCount++
                 draw(context, frameCount)
                 animationFrameId = window.requestAnimationFrame(render)
-            }, 70)           
+            }, 120)           
 
         }
 

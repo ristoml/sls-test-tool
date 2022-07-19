@@ -150,15 +150,7 @@ const ResultPanel = ({ getId, delId, sdata, updateClient, video }) => {
                     <Playback
                         id={resultId}
                         video={video}
-                        />
-                    <Button
-                        className={'btn2'}
-                        color='grey'
-                        text='Play'
-                        onClick={() => {
-                            console.log("playback")
-
-                        }} />
+                    />
                     <Button
                         className={'btn2'}
                         color='grey'

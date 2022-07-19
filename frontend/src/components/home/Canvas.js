@@ -28,7 +28,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo }) => {
 
   isRunning = isStarted
   isLeft = isLeftLeg
-  isFlipped = flipped
+  isFlipped = flipped  
   playSound.pause()
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo }) => {
         return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
       },
     })
+    pose.reset()
 
     pose.setOptions({
       modelComplexity: 2,
@@ -59,6 +60,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo }) => {
         height: 720,
         facingMode: isFlipped ? "user" : "environment"
       })
+      camera.stop()
       camera.start()
     }
     pose.onResults(onResults)
