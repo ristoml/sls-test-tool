@@ -160,7 +160,8 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo }) => {
       }
       if (record.length < maxDataSize) {
         isLeft ? record.push({ leg: 'left', counter: counter, angle: ph.getLeftAngle(), data: ph.getLeftLeg() }) : record.push({ leg: 'right', counter: counter, angle: ph.getRightAngle(), data: ph.getRightLeg() })
-        frameStack.current.push(canvasElement.toDataURL("image/png"))
+        canvasCtx.fillText(counter, -40, 40)
+        frameStack.current.push(canvasElement.toDataURL("image/jpg"))
       }
 
       if (
@@ -179,7 +180,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo }) => {
         counter++
         squatted = false
       }
-      canvasCtx.fillText(counter, -40, 40)
+      
     }
 
     if (!isRunning && alreadyRan) { // recording stops     
