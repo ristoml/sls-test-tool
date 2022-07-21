@@ -160,7 +160,7 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo }) => {
       }
       if (record.length < maxDataSize) {
         isLeft ? record.push({ leg: 'left', counter: counter, angle: ph.getLeftAngle(), data: ph.getLeftLeg() }) : record.push({ leg: 'right', counter: counter, angle: ph.getRightAngle(), data: ph.getRightLeg() })
-        canvasCtx.fillText(counter, -40, 40)
+        canvasCtx.fillText(counter, -40, 40)        
         frameStack.current.push(canvasElement.toDataURL("image/jpg"))
       }
 
