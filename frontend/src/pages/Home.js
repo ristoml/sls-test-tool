@@ -48,7 +48,7 @@ const Home = () => {
 
   const handleSquatData = (squatData) => {
     console.log(squatData)
-    if (squatData[0].data === undefined) {
+    if (squatData[0].data === undefined || squatData[0].leg === undefined) {
       dataOk.current = false
     } else {
       setSquatData(squatData)
