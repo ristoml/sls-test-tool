@@ -3,10 +3,10 @@ import Button from './Button'
 import { Link } from 'react-router-dom'
 import Toggle from './Toggle'
 
-const ControlPanel = ({ onChange, onClick, onClick2, isRecording, isLeft, handleTimer, useTimer, handleFlip, flipped }) => {
+const ControlPanel = ({ onChange, onClick, onClick2, isRecording, isLeft, handleTimer, useTimer, reps, repsPlus, repsMinus, handleFlip, flipped }) => {
   return (
     <div className='control-panel'>
-      <div>Side L 
+      <div>Side L
         <Toggle
           disabled={isRecording ? true : false}
           onChange={onChange}
@@ -15,28 +15,44 @@ const ControlPanel = ({ onChange, onClick, onClick2, isRecording, isLeft, handle
         R<br>
         </br>
         Cam R
-        <Toggle          
+        <Toggle
           disabled={isRecording ? true : false}
-          onChange={handleFlip}          
+          onChange={handleFlip}
           checked={!flipped}
         />F
-      </div><div>
+      </div>
+      <div className='start-button'>
+        <label>Timer</label>
+        <input type='checkbox'
+          id='usetimer'
+          name='usetimer'
+          checked={useTimer}
+          onChange={handleTimer} /><br />
         <Button
           className={'btn'}
           color={isRecording ? '#bdffff' : '#8300d4'}
           onClick={onClick}
           text={isRecording ? 'Stop' : 'Start'}
         />
-
-        <input type='checkbox'
-          id='usetimer'
-          name='usetimer'
-          checked={useTimer}
-          onChange={handleTimer} /><label> Timer</label></div>
+        <label>Reps</label>
+        <div className='reps'><Button
+          className={'btn4'}
+          color={'lightgreen'}
+          onClick={repsPlus}
+          text={'+'}
+        />
+        <label><strong>{reps}</strong></label>
+        <Button
+          className={'btn4'}
+          color={'pink'}
+          onClick={repsMinus}
+          text={'-'}
+        /></div>
+      </div>
       <div className='control-panel2'>
         <Button
           className={'btn2'}
-          color={'grey'}
+          color={'mediumseagreen'}
           onClick={onClick2}
           text={'Load'}
         />
@@ -44,12 +60,13 @@ const ControlPanel = ({ onChange, onClick, onClick2, isRecording, isLeft, handle
         <Link to='/info' target={'_blank'}>
           <Button
             className={'btn2'}
-            color={'grey'}
+            color={'slategrey'}
             text={'Help'}
           />
         </Link>
       </div>
     </div>
+
   )
 }
 

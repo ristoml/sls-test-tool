@@ -137,7 +137,7 @@ const Datatable = ({ data }) => {
         <tbody>
           <tr>
             <th scope="row">Side</th>
-            <td>{csvData[0].leg}</td>
+            <td>{data.data[0].leg}</td>
           </tr>
           <tr>
             <th scope="row">Repetitions</th>

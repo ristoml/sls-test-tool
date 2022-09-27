@@ -19,20 +19,19 @@ const Home = () => {
   const [showTimer, setShowTimer] = useState(false)
   const [flipped, setFlipped] = useState(true)
   const [video, setVideo] = useState([])
+  const [reps, setReps] = useState(2)
   
 
-  const startRecording = () => {
-    console.log("Start recording");
+  const startRecording = () => {    
     if (useTimer) {
       setShowTimer(true)
-    } else {
+    } else {      
       setRecording(true)
       setShowCanvas(true)
     }
   }
 
-  const stopRecording = () => {
-    console.log("Stop recording");
+  const stopRecording = () => {    
     setRecording(false)
   }
 
@@ -48,12 +47,23 @@ const Home = () => {
 
   const handleSquatData = (squatData) => {
     console.log(squatData)
-    if (squatData[0].data === undefined || squatData[0].leg === undefined) {
+    if (squatData[0].data === undefined) {
       dataOk.current = false
     } else {
       setSquatData(squatData)
     }
     setShowPopup(true)
+  } 
+  
+  const plusReps = () => {
+    if (reps<9) {
+      setReps(reps+1)
+    }
+  }
+  const minusReps = () => {
+    if (reps > 1) {
+      setReps(reps-1)
+    }
   }
   
   const handleFlip = () => {    
@@ -107,9 +117,11 @@ const Home = () => {
             isLeftLeg={isLeftLeg}
             isStarted={recording}
             getSquatData={handleSquatData}
-            onClick={showResults}
+            reps={reps}
+            onClick={showResults} //remove?
             flipped={flipped}
             getVideo={getVideo}
+            stopRec={stopRecording}
           />
           <ControlPanel
             onChange={handleLegChange}
@@ -118,6 +130,9 @@ const Home = () => {
             isRecording={recording}
             isLeft={isLeftLeg}
             handleTimer={handleTimerChange}
+            repsPlus={plusReps}
+            repsMinus={minusReps}
+            reps={reps}
             useTimer={useTimer}
             handleFlip={handleFlip}
             flipped={flipped}

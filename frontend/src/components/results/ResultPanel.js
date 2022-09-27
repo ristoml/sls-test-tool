@@ -74,8 +74,7 @@ const ResultPanel = ({ getId, delId, sdata, updateClient, video }) => {
         {options && // dont try to render before we have the array ready
             <div className='result-panel'>
                 <Select className='select-single'
-                    onChange={e => {
-                        console.log(e)
+                    onChange={e => {                        
                         setResultId(e.value)
                         setLabel(e.label)
                         getId(e.value)
@@ -146,7 +145,7 @@ const ResultPanel = ({ getId, delId, sdata, updateClient, video }) => {
         } {showPlayback && // show a pop-up box for playbacking of the selected recording
             <div className='popup-box'>
                 <div className='playbackBox' id='playback'>
-                    <p><strong>{label}</strong><br /></p>
+                    <strong>{label}</strong><br/>
                     <Playback
                         id={resultId}
                         video={video}

@@ -67,33 +67,34 @@ const Canvas = props => {
 
     return <div><canvas ref={cvsreF} {...props} />
         <Button
-            className={'btn2'}
-            color='grey'
+            className={'btn5'}
+            color='lightblue'
             text='<<'
             onClick={rewind} />
         <Button
-            className={'btn2'}
-            color='grey'
+            className={'btn5'}
+            color='lightgreen'
             text='||/>'
             onClick={pause} />
         <Button
-            className={'btn2'}
-            color='grey'
+            className={'btn5'}
+            color='lightblue'
             text='>>'
             onClick={forward} />
+            <label> speed: </label>
         <Button
-            className={'btn2'}
-            color='grey'
+            className={'btn5'}
+            color='lightblue'
             text='-'
             onClick={slow} />
         <Button
-            className={'btn2'}
-            color='grey'
-            text='reset'
+            className={'btn5'}
+            color='lightgrey'
+            text='rst'
             onClick={reset} />
         <Button
-            className={'btn2'}
-            color='grey'
+            className={'btn5'}
+            color='lightblue'
             text='+'
             onClick={fast} />
     </div>

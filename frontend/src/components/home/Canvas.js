@@ -16,19 +16,23 @@ let maxDataSize = 1000 // maximum length of recorded data before discarding the 
 let isRunning = false
 let alreadyRan = false
 let squatted = false
-let hipAtStart, counter, record, isLeft
+let hipAtStart, record, isLeft
 let squattedText = 'Ok!'
 let playSound = new Audio(sound)
 let isFlipped = true
+let counter = 0;
+let count = 0;
 
-const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo }) => {
+const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo, reps, stopRec }) => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
+  const tempFrameStack = useRef([])
   const frameStack = useRef([])
 
   isRunning = isStarted
   isLeft = isLeftLeg
-  isFlipped = flipped  
+  isFlipped = flipped
+  count = reps
   playSound.pause()
 
   useEffect(() => {
@@ -149,19 +153,18 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo }) => {
 
     // squat counter and data capture
     if (isFlipped) canvasCtx.scale(-1, 1)
-    if (isRunning) {
+    if (isRunning && counter < count) {
       if (!alreadyRan) { // new recording, reset everything
         isLeft ? hipAtStart = ph.getLeftHipY() * hipMargin : hipAtStart = ph.getRightHipY() * hipMargin
         record = []
-        frameStack.current = []
-        counter = 0
+        tempFrameStack.current = []
         squatted = false
         alreadyRan = true
       }
       if (record.length < maxDataSize) {
         isLeft ? record.push({ leg: 'left', counter: counter, angle: ph.getLeftAngle(), data: ph.getLeftLeg() }) : record.push({ leg: 'right', counter: counter, angle: ph.getRightAngle(), data: ph.getRightLeg() })
-        canvasCtx.fillText(counter, -40, 40)        
-        frameStack.current.push(canvasElement.toDataURL("image/jpg"))
+        canvasCtx.fillText(counter, -40, 40)
+        tempFrameStack.current.push(canvasElement.toDataURL("image/jpg"))
       }
 
       if (
@@ -177,18 +180,25 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo }) => {
         (isLeft && ph.getLeftHipY() <= hipAtStart && squatted) || // check if back standing up after a squat, left leg
         (!isLeft && ph.getRightHipY() <= hipAtStart && squatted)  // right leg
       ) {
-        counter++
         squatted = false
+        counter++
+        console.log(counter)
       }
-      
+
     }
 
-    if (!isRunning && alreadyRan) { // recording stops     
-      getSquatData(record)
-      getVideo(frameStack.current)
+
+    if ((!isRunning && alreadyRan) || (counter === count && alreadyRan)) { // recording complete
+      stopRec()
+      if (counter === count) {
+        getSquatData(record)
+        frameStack.current = tempFrameStack.current
+        getVideo(frameStack.current)
+      }
       alreadyRan = false
+      counter = 0
       squatted = false
-      playSound.pause()      
+      playSound.pause()
     }
     canvasCtx.restore()
   }

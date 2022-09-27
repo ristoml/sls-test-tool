@@ -29,7 +29,7 @@ const Stats = ({ data }) => {
 
     for (let i = 0; i < sdata.length; i++) { // find the number of total squats      
       if (sdata[i].counter > squats.current) {
-        squats.current = sdata[i].counter - 1 //discard the last index because its not a full squat
+        squats.current = sdata[i].counter // - 1 //discard the last index because its not a full squat
       }
     }
 
@@ -57,8 +57,8 @@ const Stats = ({ data }) => {
   return (
     <div>
       {rechartsData.current && (<>
-        <LineChart width={590} height={380} data={rdata}
-          margin={{ top: 5, right: 2, left: 2, bottom: 10 }}>
+        <LineChart width={590} height={370} data={rdata}
+          margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
           <XAxis dataKey='sample' />
           <YAxis domain={[-25, 25]} allowDataOverflow={true} ticks={[-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25]} />
           <CartesianGrid strokeDasharray='3 3' />
