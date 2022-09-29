@@ -10,6 +10,7 @@ const Datatable = ({ data }) => {
   useEffect(() => {
     setData(data)
   }, [data])
+  console.log(data)
 
   // SEPARATE angle values for calculation
 
@@ -28,6 +29,7 @@ const Datatable = ({ data }) => {
     temparray.push(dataobj.angle)
     return ''
   })
+  console.log(splitAnglevalues)
 
   // CALCULATE mean and std from minimum and maximum values
 
@@ -36,7 +38,7 @@ const Datatable = ({ data }) => {
   let minvalues = []
   let maxvalues = []
 
-  for (let i = 0; i < splitAnglevalues.length - 1; i++) {
+  for (let i = 0; i < splitAnglevalues.length; i++) {
     for (let j = 0; j < splitAnglevalues[i].length; j++) {
       minX = Math.min.apply(Math, splitAnglevalues[i])
       maxX = Math.max.apply(Math, splitAnglevalues[i])
@@ -141,7 +143,7 @@ const Datatable = ({ data }) => {
           </tr>
           <tr>
             <th scope="row">Repetitions</th>
-            <td>{data.data[data.data.length - 1].counter}</td>
+            <td>{data.data[data.data.length - 1].counter + 1}</td>
           </tr>
           <tr>
             <th scope="row">Mean minimum angle </th>
