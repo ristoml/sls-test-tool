@@ -97,7 +97,26 @@ canvas {
   width: 400px;
   
 }
+.videoLabel {
+  /* padding-left: 1ch;
+  padding-right: 1ch;
+  padding-bottom: 2ch;
+  padding-top: 1ch;
+  margin-top: 1vh; */
+  border-radius: 50%;
+  margin: 4px;
+  height: 61px;
+  width: 61px;
+  justify-content: center;
+  border: 2px solid #333;
+  background-color: #8300d4;
+  color: black;
 
+  align-items: center;
+  font-size: 14px;
+  display: flex;
+  font-weight: 600;
+}
 .btn {
   border-radius: 50%;
   margin: 4px;
@@ -376,4 +395,8 @@ table {
   padding: 10px;
   border: 0x solid #ffffff7a;
   overflow: auto;
+}
+
+#usetimer {
+  margin-left: 13px;
 }

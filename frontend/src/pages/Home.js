@@ -16,22 +16,28 @@ const Home = () => {
   const dataOk = useRef(true)
   const [showPopup, setShowPopup] = useState(false)
   const [useTimer, setUseTimer] = useState(false)
+  const [useFile, setUseFile] = useState(false)
   const [showTimer, setShowTimer] = useState(false)
   const [flipped, setFlipped] = useState(true)
   const [video, setVideo] = useState([])
   const [reps, setReps] = useState(2)
-  
 
-  const startRecording = () => {    
-    if (useTimer) {
-      setShowTimer(true)
-    } else {      
-      setRecording(true)
-      setShowCanvas(true)
+
+  const startRecording = () => {
+    if (!useFile) {
+      if (useTimer) {
+        setShowTimer(true)
+      } else {
+        setRecording(true)
+        setShowCanvas(true)
+      }
+    } else if (useFile) {
+
     }
+
   }
 
-  const stopRecording = () => {    
+  const stopRecording = () => {
     setRecording(false)
   }
 
@@ -53,25 +59,29 @@ const Home = () => {
       setSquatData(squatData)
     }
     setShowPopup(true)
-  } 
-  
+  }
+
   const plusReps = () => {
-    if (reps<9) {
-      setReps(reps+1)
+    if (reps < 9) {
+      setReps(reps + 1)
     }
   }
   const minusReps = () => {
     if (reps > 1) {
-      setReps(reps-1)
+      setReps(reps - 1)
     }
   }
-  
-  const handleFlip = () => {    
+
+  const handleFlip = () => {
     setFlipped(!flipped)
   }
 
   const handleTimerChange = () => {
-    setUseTimer(!useTimer)    
+    setUseTimer(!useTimer)
+  }
+
+  const handleFileChange = () => {
+    setUseFile(!useFile)
   }
 
   const handleLegChange = () => {
@@ -116,6 +126,7 @@ const Home = () => {
           <Canvas
             isLeftLeg={isLeftLeg}
             isStarted={recording}
+            useFile={useFile}
             getSquatData={handleSquatData}
             reps={reps}
             onClick={showResults} //remove?
@@ -134,6 +145,8 @@ const Home = () => {
             repsMinus={minusReps}
             reps={reps}
             useTimer={useTimer}
+            useFile={useFile}
+            handleFile={handleFileChange}
             handleFlip={handleFlip}
             flipped={flipped}
           />

@@ -23,7 +23,7 @@ let isFlipped = true
 let counter = 0;
 let count = 0;
 
-const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo, reps, stopRec }) => {
+const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo, reps, stopRec, useFile }) => {
   const webcamRef = useRef(null)
   const canvasRef = useRef(null)
   const tempFrameStack = useRef([])
@@ -44,12 +44,12 @@ const Canvas = ({ isLeftLeg, isStarted, getSquatData, flipped, getVideo, reps, s
     pose.reset()
 
     pose.setOptions({
-      modelComplexity: 2,
+      modelComplexity: 1,
       smoothLandmarks: true,
-      enableSegmentation: true,
-      smoothSegmentation: true,
-      minDetectionConfidence: 0.7,
-      minTrackingConfidence: 0.7,
+      enableSegmentation: false,
+      smoothSegmentation: false,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
     })
 
     if (
